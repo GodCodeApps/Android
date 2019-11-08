@@ -40,35 +40,35 @@ public class SplashActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         mFlashView = findViewById(R.id.flash_view);
-
-        OkHttpUtils
-                .get()
-                .url("http://appid.aigoodies.com/getAppConfig.php?appid=ceshiqianggeng14546")
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        jumpApp("");
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        MJ bean = new Gson().fromJson(response, MJ.class);
-                        if (bean != null && "true".equals(bean.getSuccess()) && "1".equals(bean.getShowWeb())) {
-                            if (bean.getUrl().endsWith(".apk")) {
-                                Intent intent = new Intent(SplashActivity.this, VersionUpdateAct.class);
-                                intent.putExtra("url", bean.getUrl());
-                                startActivity(intent);
-                            } else {
-                                jumpApp(bean.getUrl());
-                            }
-
-                        } else {
-                            jumpApp("");
-                        }
-                    }
-
-                });
+        jumpApp("");
+//        OkHttpUtils
+//                .get()
+//                .url("http://appid.aigoodies.com/getAppConfig.php?appid=ceshiqianggeng14546")
+//                .build()
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onError(Call call, Exception e, int id) {
+//                        jumpApp("");
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String response, int id) {
+//                        MJ bean = new Gson().fromJson(response, MJ.class);
+//                        if (bean != null && "true".equals(bean.getSuccess()) && "1".equals(bean.getShowWeb())) {
+//                            if (bean.getUrl().endsWith(".apk")) {
+//                                Intent intent = new Intent(SplashActivity.this, VersionUpdateAct.class);
+//                                intent.putExtra("url", bean.getUrl());
+//                                startActivity(intent);
+//                            } else {
+//                                jumpApp(bean.getUrl());
+//                            }
+//
+//                        } else {
+//                            jumpApp("");
+//                        }
+//                    }
+//
+//                });
 
     }
 

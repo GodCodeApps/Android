@@ -27,6 +27,7 @@ import com.tencent.qcloud.tim.demo.R;
 import com.tencent.qcloud.tim.demo.contact.ContactFragment;
 import com.tencent.qcloud.tim.demo.conversation.ConversationFragment;
 import com.tencent.qcloud.tim.demo.login.Api;
+import com.tencent.qcloud.tim.demo.login.LoginForDevActivity;
 import com.tencent.qcloud.tim.demo.login.RespBase;
 import com.tencent.qcloud.tim.demo.login.SharedPreferencesHelper;
 import com.tencent.qcloud.tim.demo.login.UserInfo;
@@ -201,6 +202,7 @@ public class MainActivity extends BaseActivity implements ConversationManagerKit
                         if (parseObject.getCode() != 0) {
                             ToastUtil.toastLongMessage("登录失效请重新登录");
                             SharedPreferencesHelper.clearAll(MainActivity.this);
+                            startActivity(new Intent(MainActivity.this, LoginForDevActivity.class));
                             finish();
                             return;
                         }
