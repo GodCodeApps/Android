@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.huawei.android.hms.agent.HMSAgent;
@@ -198,18 +199,19 @@ public class MainActivity extends BaseActivity implements ConversationManagerKit
                         Log.e("response", "${response}");
                         RespBase parseObject = new Gson().fromJson(response, RespBase.class);
                         if (parseObject.getCode() != 0) {
+                            ToastUtil.toastLongMessage("登录失效请重新登录");
                             SharedPreferencesHelper.clearAll(MainActivity.this);
                             finish();
                             return;
                         }
                         UserInfo user = parseObject.getUser();
-                        user.token=userInfo.token ;
+                        user.token = userInfo.token;
                         SharedPreferences shareInfo = getSharedPreferences(Constants.USERINFO, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = shareInfo.edit();
-                        editor.putString(Constants.ICON_URL, user.getAvatarUrl()+"");
+                        editor.putString(Constants.ICON_URL, user.getAvatarUrl() + "");
                         editor.commit();
-                        updateProfile(user.getAvatarUrl()+"");
-                        UserInfo.getInstance().setReplayUrl(user.avatarUrl+"");
+                        updateProfile(user.getAvatarUrl() + "");
+                        UserInfo.getInstance().setReplayUrl(user.avatarUrl + "");
                         SharedPreferencesHelper.setString(
                                 MainActivity.this,
                                 SharedPreferencesHelper.USER_INFO,
@@ -217,6 +219,7 @@ public class MainActivity extends BaseActivity implements ConversationManagerKit
                     }
                 });
     }
+
     private void updateProfile(String mIconUrl) {
         HashMap<String, Object> hashMap = new HashMap<>();
         // 头像
@@ -230,7 +233,7 @@ public class MainActivity extends BaseActivity implements ConversationManagerKit
             @Override
             public void onError(int i, String s) {
                 DemoLog.e(TAG, "modifySelfProfile err code = " + i + ", desc = " + s);
-                ToastUtil.toastShortMessage("Error code = " + i + ", desc = " + s);
+//                ToastUtil.toastShortMessage("Error code = " + i + ", desc = " + s);
             }
 
             @Override
@@ -239,6 +242,7 @@ public class MainActivity extends BaseActivity implements ConversationManagerKit
             }
         });
     }
+
     @Override
     public void updateUnread(int count) {
         if (count > 0) {
