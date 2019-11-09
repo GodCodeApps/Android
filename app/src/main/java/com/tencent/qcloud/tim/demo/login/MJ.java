@@ -12,7 +12,25 @@ public class MJ {
     private String success;
     private String ShowWeb;
     private String PushKey;
-    private String Url;
+    private String appId;
+    private String status;
+    private String url;
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getSuccess() {
         return success;
@@ -39,10 +57,10 @@ public class MJ {
     }
 
     public String getUrl() {
-        return Url;
+        return url;
     }
 
     public void setUrl(String Url) {
-        this.Url = Url;
+        this.url = Url;
     }
 }

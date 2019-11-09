@@ -13,7 +13,9 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.ws.selle_vb"
+//        applicationId "com.chat.caiyan.shusf"
+        applicationId "com.chat.caiyan.shusf"
+
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -27,7 +29,8 @@ android {
         }
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "0cbd81d2fbe07097abac9735",
+//                JPUSH_APPKEY : "0cbd81d2fbe07097abac9735",
+                JPUSH_APPKEY : "285bc5199fc50df094ad9585",
                 JPUSH_CHANNEL: "developer-default",
         ]
     }

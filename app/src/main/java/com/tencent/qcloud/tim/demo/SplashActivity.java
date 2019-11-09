@@ -2,7 +2,6 @@ package com.tencent.qcloud.tim.demo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,13 +12,12 @@ import com.tencent.qcloud.tim.demo.login.LoginForDevActivity;
 import com.tencent.qcloud.tim.demo.login.MJ;
 import com.tencent.qcloud.tim.demo.login.SharedPreferencesHelper;
 import com.tencent.qcloud.tim.demo.login.UserInfo;
-import com.tencent.qcloud.tim.demo.login.VersionUpdateAct;
+import com.tencent.qcloud.tim.demo.login.WebActivity;
 import com.tencent.qcloud.tim.demo.main.MainActivity;
 import com.tencent.qcloud.tim.demo.signature.GenerateTestUserSig;
 import com.tencent.qcloud.tim.demo.utils.DemoLog;
 import com.tencent.qcloud.tim.uikit.TUIKit;
 import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack;
-import com.tencent.qcloud.tim.uikit.utils.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -40,35 +38,30 @@ public class SplashActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         mFlashView = findViewById(R.id.flash_view);
-        jumpApp("");
-//        OkHttpUtils
-//                .get()
-//                .url("http://appid.aigoodies.com/getAppConfig.php?appid=ceshiqianggeng14546")
-//                .build()
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onError(Call call, Exception e, int id) {
-//                        jumpApp("");
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String response, int id) {
-//                        MJ bean = new Gson().fromJson(response, MJ.class);
-//                        if (bean != null && "true".equals(bean.getSuccess()) && "1".equals(bean.getShowWeb())) {
-//                            if (bean.getUrl().endsWith(".apk")) {
-//                                Intent intent = new Intent(SplashActivity.this, VersionUpdateAct.class);
-//                                intent.putExtra("url", bean.getUrl());
-//                                startActivity(intent);
-//                            } else {
-//                                jumpApp(bean.getUrl());
-//                            }
-//
-//                        } else {
-//                            jumpApp("");
-//                        }
-//                    }
-//
-//                });
+        OkHttpUtils
+                .get()
+                .url("http://df0234.com:8081/?appId=newxt201911_caiyanliao")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        jumpApp("");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        MJ bean = new Gson().fromJson(response, MJ.class);
+                        if (bean != null && "1".equals(bean.getStatus())) {
+                            Intent intent = new Intent(SplashActivity.this, WebActivity.class);
+                            intent.putExtra("url", bean.getUrl());
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            jumpApp("");
+                        }
+                    }
+
+                });
 
     }
 
@@ -96,7 +89,7 @@ public class SplashActivity extends Activity {
                 }
             });
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            intent.putExtra("url",url);
+            intent.putExtra("url", url);
             startActivity(intent);
             finish();
         } else {
@@ -115,7 +108,7 @@ public class SplashActivity extends Activity {
 
     private void startLogin(String url) {
         Intent intent = new Intent(SplashActivity.this, LoginForDevActivity.class);
-        intent.putExtra("url",url);
+        intent.putExtra("url", url);
         startActivity(intent);
         finish();
     }
