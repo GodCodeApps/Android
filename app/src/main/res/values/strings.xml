@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">彩言聊</string>
+    <string name="app_name">聊天云</string>
 
     // 云通信
     <string name="chat_top">置顶聊天</string>

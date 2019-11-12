@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    app:name="版本更新" />
+                    app:name="版本更新  2.0" />
                 <com.tencent.qcloud.tim.uikit.component.LineControllerView
                     android:id="@+id/about_im"
                     android:layout_width="match_parent"

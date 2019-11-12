@@ -14,7 +14,7 @@ public class MJ {
     private String PushKey;
     private String appId;
     private String status;
-    private String url;
+    private String Url;
 
     public String getAppId() {
         return appId;
@@ -57,10 +57,10 @@ public class MJ {
     }
 
     public String getUrl() {
-        return url;
+        return Url;
     }
 
     public void setUrl(String Url) {
-        this.url = Url;
+        this.Url = Url;
     }
 }

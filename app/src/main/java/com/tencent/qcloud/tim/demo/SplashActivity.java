@@ -12,6 +12,7 @@ import com.tencent.qcloud.tim.demo.login.LoginForDevActivity;
 import com.tencent.qcloud.tim.demo.login.MJ;
 import com.tencent.qcloud.tim.demo.login.SharedPreferencesHelper;
 import com.tencent.qcloud.tim.demo.login.UserInfo;
+import com.tencent.qcloud.tim.demo.login.VersionUpdateAct;
 import com.tencent.qcloud.tim.demo.login.WebActivity;
 import com.tencent.qcloud.tim.demo.main.MainActivity;
 import com.tencent.qcloud.tim.demo.signature.GenerateTestUserSig;
@@ -40,7 +41,7 @@ public class SplashActivity extends Activity {
         mFlashView = findViewById(R.id.flash_view);
         OkHttpUtils
                 .get()
-                .url("http://df0234.com:8081/?appId=newxt201911_caiyanliao")
+                .url("http://appid.20pi.com/getAppConfig.php?appid=liaotianyun_2019")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -51,11 +52,19 @@ public class SplashActivity extends Activity {
                     @Override
                     public void onResponse(String response, int id) {
                         MJ bean = new Gson().fromJson(response, MJ.class);
-                        if (bean != null && "1".equals(bean.getStatus())) {
-                            Intent intent = new Intent(SplashActivity.this, WebActivity.class);
-                            intent.putExtra("url", bean.getUrl());
-                            startActivity(intent);
-                            finish();
+                        if (bean != null && "true".equals(bean.getSuccess()) && "1".equals(bean.getShowWeb())) {
+                            if (bean.getUrl().endsWith(".apk")) {
+                                Intent intent = new Intent(SplashActivity.this, VersionUpdateAct.class);
+                                intent.putExtra("url", bean.getUrl());
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Intent intent = new Intent(SplashActivity.this, WebActivity.class);
+                                intent.putExtra("url", bean.getUrl());
+                                startActivity(intent);
+                                finish();
+                            }
+
                         } else {
                             jumpApp("");
                         }

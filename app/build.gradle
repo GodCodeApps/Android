@@ -13,9 +13,9 @@ android {
         }
     }
     defaultConfig {
+//        applicationId "com.play.ttgamechess"
 //        applicationId "com.chat.caiyan.shusf"
-        applicationId "com.chat.caiyan.shusf"
-
+        applicationId "com.play.ttgamechess"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -31,6 +31,7 @@ android {
                 JPUSH_PKGNAME: applicationId,
 //                JPUSH_APPKEY : "0cbd81d2fbe07097abac9735",
                 JPUSH_APPKEY : "285bc5199fc50df094ad9585",
+                JPUSH_APPKEY : "981336f30184e9f1b71686ad",
                 JPUSH_CHANNEL: "developer-default",
         ]
     }
