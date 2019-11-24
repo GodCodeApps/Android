@@ -1,9 +1,13 @@
 package com.tencent.qcloud.tim.demo.login;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +29,8 @@ import com.zyao89.view.zloading.Z_TYPE;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,6 +51,8 @@ public class RegistActivity extends Activity {
     private ZLoadingDialog dialog;
     private ImageView ivAvatar;
     private UserInfo userInfo;
+    private int ACTION_REQUEST_PERMISSIONS = 0x001;
+    private List<String> list;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +68,9 @@ public class RegistActivity extends Activity {
         Button btnComple = findViewById(R.id.btnComple);
         userInfo = new UserInfo();
 
+        list = Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        final String[] strings = new String[list.size()];
+        list.toArray(strings);
         titleBarLayout.setTitle("注册", MIDDLE);
         titleBarLayout.setRightIcon(0);
         titleBarLayout.setOnLeftClickListener(new View.OnClickListener() {
@@ -71,6 +82,10 @@ public class RegistActivity extends Activity {
         ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!checkPermissions(list)) {
+                    ActivityCompat.requestPermissions(RegistActivity.this, strings, ACTION_REQUEST_PERMISSIONS);
+                    return;
+                }
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_PICK);
                 intent.setType("image/*");
@@ -213,4 +228,14 @@ public class RegistActivity extends Activity {
                 });
     }
 
+    private boolean checkPermissions(List<String> neededPermissions) {
+        if (neededPermissions == null || neededPermissions.isEmpty()) {
+            return true;
+        }
+        boolean allGranted = true;
+        for (int i = 0; i < neededPermissions.size(); i++) {
+            allGranted = allGranted && (ContextCompat.checkSelfPermission(RegistActivity.this, neededPermissions.get(i)) == PackageManager.PERMISSION_GRANTED);
+        }
+        return allGranted;
+    }
 }
